@@ -18,7 +18,8 @@ public class Main {
                 6- Peso Colombiano -> Dolar
                 7- Dolar -> Peso Chileno
                 8- Peso Chileno -> Dolar
-                9- Salir
+                9- Lista de conversiones
+                10- Salir
                 *****************************************
                 """;
         ArrayList<ConvertedCurrency> localArray = new ArrayList<>();
@@ -36,7 +37,6 @@ public class Main {
                 case 2:
                     System.out.println("seleccionaste 2");
                     currencyToConvert = "ARS/USD";
-
                     break;
                 case 3:
                     System.out.println("seleccionaste 3");
@@ -63,6 +63,10 @@ public class Main {
                     currencyToConvert = "CLP/USD";
                     break;
                 case 9:
+                    System.out.println("Lista de conversiones");
+                    localArray.forEach(item -> System.out.println("-----------\n" + item));
+                    break;
+                case 10:
                     System.out.println("seleccionaste salir, terminando el programa...");
                     exit = true;
                     break;
@@ -70,16 +74,15 @@ public class Main {
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
                     continue;
             }
-            if (!exit) {
+            if (!exit && userSelection != 9) {
                 System.out.println("Ingresa el Valor a convertir");
                 double valueToConvertSelected = keyboard.nextDouble();
                 try {
                     ConvertedCurrency actualCurrency = currencyQuerie.currencyValue(currencyToConvert, valueToConvertSelected);
                     localArray.add(actualCurrency);
                     System.out.println(actualCurrency);
-                    System.out.println(localArray);
                 } catch (NumberFormatException error) {
-                    System.out.println("Numero no encontrado " + error.getMessage());
+                    System.out.println("Número no encontrado " + error.getMessage());
                 } catch (RuntimeException error) {
                     System.out.println("Error: " + error.getMessage());
                 }
