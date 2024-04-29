@@ -1,4 +1,6 @@
-import java.io.IOException;
+import com.tomaspacheco.moneyConversor.models.ConvertedCurrency;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -19,6 +21,7 @@ public class Main {
                 9- Salir
                 *****************************************
                 """;
+        ArrayList<ConvertedCurrency> localArray = new ArrayList<>();
         while (!exit) {
             System.out.println("Selecciona tu opción:");
             System.out.println(options);
@@ -71,8 +74,10 @@ public class Main {
                 System.out.println("Ingresa el Valor a convertir");
                 double valueToConvertSelected = keyboard.nextDouble();
                 try {
-                    Currency actualCurrency = currencyQuerie.currencyValue(currencyToConvert, valueToConvertSelected);
+                    ConvertedCurrency actualCurrency = currencyQuerie.currencyValue(currencyToConvert, valueToConvertSelected);
+                    localArray.add(actualCurrency);
                     System.out.println(actualCurrency);
+                    System.out.println(localArray);
                 } catch (NumberFormatException error) {
                     System.out.println("Numero no encontrado " + error.getMessage());
                 } catch (RuntimeException error) {
