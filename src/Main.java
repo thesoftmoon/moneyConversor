@@ -1,10 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Selecciona tu opción:");
-        System.out.println("""
+        CurrencyQuerie currencyQuerie = new CurrencyQuerie();
+        boolean exit = false;
+        String options = """
                 *****************************************
                 1- Dolar -> Peso Argentino
                 2- Peso Argentino -> Dolar
@@ -16,9 +18,69 @@ public class Main {
                 8- Peso Chileno -> Dolar
                 9- Salir
                 *****************************************
-                """);
-        var userSelection = keyboard.nextInt();
+                """;
+        while (!exit) {
+            System.out.println("Selecciona tu opción:");
+            System.out.println(options);
+            var userSelection = keyboard.nextInt();
+            String currencyToConvert = "";
 
-        System.out.println("Seleccionaste la opcion: " + userSelection);
+            switch (userSelection) {
+                case 1:
+                    System.out.println("seleccionaste 1");
+                    currencyToConvert = "USD/ARS";
+                    break;
+                case 2:
+                    System.out.println("seleccionaste 2");
+                    currencyToConvert = "ARS/USD";
+
+                    break;
+                case 3:
+                    System.out.println("seleccionaste 3");
+                    currencyToConvert = "USD/BRL";
+                    break;
+                case 4:
+                    System.out.println("seleccionaste 4");
+                    currencyToConvert = "BRL/USD";
+                    break;
+                case 5:
+                    System.out.println("seleccionaste 5");
+                    currencyToConvert = "USD/COP";
+                    break;
+                case 6:
+                    System.out.println("seleccionaste 6");
+                    currencyToConvert = "COP/USD";
+                    break;
+                case 7:
+                    System.out.println("seleccionaste 7");
+                    currencyToConvert = "USD/CLP";
+                    break;
+                case 8:
+                    System.out.println("seleccionaste 8");
+                    currencyToConvert = "CLP/USD";
+                    break;
+                case 9:
+                    System.out.println("seleccionaste salir, terminando el programa...");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+                    continue;
+            }
+            if (!exit) {
+                System.out.println("Ingresa el Valor a convertir");
+                double valueToConvertSelected = keyboard.nextDouble();
+                try {
+                    Currency actualCurrency = currencyQuerie.currencyValue(currencyToConvert, valueToConvertSelected);
+                    System.out.println(actualCurrency);
+                } catch (NumberFormatException error) {
+                    System.out.println("Numero no encontrado " + error.getMessage());
+                } catch (RuntimeException error) {
+                    System.out.println("Error: " + error.getMessage());
+                }
+            }
+
+
+        }
     }
 }
